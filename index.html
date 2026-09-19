@@ -22,36 +22,53 @@
       font-size: 1rem;
       line-height: 1.5;
     }
-    main { text-align: center; padding: 2rem 1.5rem; }
+    main { text-align: center; padding: 2rem 1.5rem; max-width: 22rem; }
     h1 {
       margin: 0 0 2rem;
       font-size: 1.375rem;
       font-weight: 400;
     }
+    nav { margin: 0 0 1.75rem; }
     nav ul { margin: 0; padding: 0; list-style: none; }
     nav li { margin: 0 0 0.75rem; }
     nav li:last-child { margin-bottom: 0; }
-    nav a {
+    .group-label {
+      margin: 0 0 0.75rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+    }
+    a {
       color: #111;
       font-size: 1rem;
       text-decoration: underline;
       text-underline-offset: 0.15em;
     }
-    nav a:hover, nav a:focus-visible { text-decoration-thickness: 2px; }
-    nav a:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
+    a:hover, a:focus-visible { text-decoration-thickness: 2px; }
+    a:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
   </style>
 </head>
-<body data-deploy="main-branch-poc">
+<body>
   <main>
     <h1>Kevin Guiang</h1>
     <nav aria-label="Primary">
       <ul>
         <li><a href="/blog/">Blog</a></li>
-        <li><a href="https://kfguiang-spec.github.io/wset-tasting-guide/">Wine</a></li>
         <li><a href="/music/">Music</a></li>
       </ul>
     </nav>
-      <p class="poc" style="margin:3rem 0 0;font-size:0.75rem;color:#999;">deployed from GitHub</p>
+    <p class="group-label">Wine</p>
+    <nav aria-label="Wine tools">
+      <ul>
+        <li><a href="https://kfguiang-spec.github.io/wset-tasting-guide/">Tasting guide (WSET)</a></li>
+        <li><a href="https://kfguiang-spec.github.io/grape-lineage/">Grape lineage</a></li>
+        <li><a href="https://kfguiang-spec.github.io/french-wine-regions/">France regions</a></li>
+        <li><a href="https://kfguiang-spec.github.io/us-wine-regions/">US regions</a></li>
+        <li><a href="https://kfguiang-spec.github.io/wine-varietal-map/">Varietal production</a></li>
+        <li><a href="https://kfguiang-spec.github.io/wine-climate-twins/">Climate twins</a></li>
+      </ul>
+    </nav>
   </main>
 </body>
 </html>
