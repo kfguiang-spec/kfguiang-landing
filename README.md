@@ -13,6 +13,24 @@ Minimal static landing page: name + three links (Blog, Wine, Music). Plain HTML 
 
    Then visit [http://localhost:8000](http://localhost:8000).
 
+
+## Deploy PoC (current)
+
+This site publishes **automatically from the `main` branch** via GitHub Pages — no cPanel upload, no Actions workflow needed.
+
+1. Change files → `git push origin main`
+2. Wait ~30–60s for Pages to build
+3. Open: https://kfguiang-spec.github.io/kfguiang-landing/
+
+### Optional: custom subdomain later
+
+When you want `https://landing.kfguiang.co/`:
+
+1. In GoDaddy DNS for `kfguiang.co`, add a **CNAME**:
+   - Host: `landing`
+   - Points to: `kfguiang-spec.github.io`
+2. Tell me — I’ll re-attach the custom domain in GitHub Pages and turn on HTTPS.
+
 ## Site structure (intended)
 
 | Path | Purpose |
