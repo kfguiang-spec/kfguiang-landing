@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Books: what Kevin Guiang has read, how it has changed over time, what he's reading now and what's next.">
+  <title>Books — Kevin Guiang</title>
+  <link rel="stylesheet" href="../assets/site.css">
+  <style>
+    /* Page-specific styles only; shared tokens and components live in assets/site.css */
+    html { scroll-behavior: smooth; }
+
+    /* Reading now */
+    .now { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: var(--space-4); }
+    .now .card { display: grid; grid-template-columns: 7.5rem 1fr; gap: var(--space-4); align-items: start; }
+    .now .cover, .now .placeholder { width: 7.5rem; aspect-ratio: 2 / 3; border-radius: 2px; }
+    .now .cover { height: auto; object-fit: cover; box-shadow: var(--shadow-card); display: block; }
+    .now h3 { margin: 0; font-size: 1.125rem; font-weight: 700; line-height: 1.3; }
+    .now .st { margin: 0.1rem 0 var(--space-2); color: var(--color-subtle); font-size: var(--text-sm); }
+    .now .meta { margin: 0 0 var(--space-2); font-size: var(--text-sm); }
+    .now .note { margin: 0 0 var(--space-2); font-size: var(--text-sm); color: #333; }
+
+    /* Filters */
+    .filters { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0 0 var(--space-4); }
+    .swatch { width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block; flex: none; }
+
+    /* Five-star shelf */
+    .fivestar { margin: 0 0 var(--space-5); padding: var(--space-4); background: var(--color-accent-soft); border-radius: var(--radius); }
+    .fivestar .section-label { color: var(--color-accent); }
+
+    /* Book grids */
+    .cat-block { margin: 0 0 var(--space-6); }
+    .cat-head { display: flex; align-items: baseline; gap: var(--space-2); flex-wrap: wrap; margin: 0 0 var(--space-3); padding-bottom: var(--space-2); border-bottom: 1px solid var(--color-line); }
+    .cat-head h3 { margin: 0; font-size: 1.0625rem; font-weight: 700; }
+    .cat-head .n { color: var(--color-muted); font-size: var(--text-sm); }
+    .cat-head .blurb { flex-basis: 100%; color: var(--color-subtle); font-size: var(--text-sm); }
+    .shelf { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(7.25rem, 1fr)); gap: var(--space-4) var(--space-3); }
+    .book { min-width: 0; font-size: var(--text-sm); line-height: 1.3; }
+    .book .jacket { position: relative; display: block; aspect-ratio: 2 / 3; margin-bottom: var(--space-2); }
+    .book .jacket img, .book .jacket .placeholder { width: 100%; height: 100%; border-radius: 2px; }
+    .book .jacket img { object-fit: cover; display: block; box-shadow: var(--shadow-card); background: var(--color-surface); }
+    .book .placeholder .pt { color: var(--color-text); font-size: 0.8rem; }
+    .book .placeholder .pn { font-size: 0.625rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-muted); }
+    .book .bar { position: absolute; left: 0; right: 0; bottom: -4px; height: 3px; border-radius: 2px; }
+    .book.five .jacket img, .book.five .jacket .placeholder { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+    .book .five-badge { position: absolute; top: 4px; left: 4px; }
+    .book .ti { font-weight: 700; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .book .ti a { text-decoration: none; }
+    .book .ti a:hover { text-decoration: underline; }
+    .book .au { color: var(--color-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .book .dt { color: var(--color-muted); font-size: var(--text-xs); margin-top: 0.1rem; }
+    .stars { color: var(--color-accent); letter-spacing: 0.05em; font-size: var(--text-xs); }
+    .empty { color: var(--color-muted); font-size: var(--text-sm); }
+
+    /* Evolution charts */
+    .charts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items: start; }
+    @media (max-width: 820px) { .charts { grid-template-columns: 1fr; } }
+    .chart-title { margin: 0 0 var(--space-3); font-size: var(--text-sm); font-weight: 700; }
+    .cols { display: flex; align-items: flex-end; gap: var(--space-3); height: 15rem; padding-top: 1.25rem; border-bottom: 1px solid var(--color-text); }
+    .col { flex: 1; display: flex; flex-direction: column-reverse; position: relative; min-width: 0; }
+    .col .seg { width: 100%; }
+    .col .seg:last-child { border-radius: 2px 2px 0 0; }
+    .col .total { position: absolute; left: 0; right: 0; text-align: center; font-size: var(--text-sm); font-weight: 700; }
+    .years { display: flex; gap: var(--space-3); margin-top: var(--space-2); }
+    .years span { flex: 1; text-align: center; font-size: var(--text-xs); color: var(--color-subtle); }
+    .share { display: grid; grid-template-columns: 2.5rem 1fr 2rem; gap: var(--space-2) var(--space-3); align-items: center; }
+    .share .y { font-size: var(--text-xs); color: var(--color-subtle); }
+    .share .n { font-size: var(--text-xs); color: var(--color-muted); text-align: right; }
+    .share .row { display: flex; height: 1.6rem; border-radius: 2px; overflow: hidden; background: var(--color-surface); }
+    .share .row span { height: 100%; }
+    .legend { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); margin: var(--space-4) 0 0; padding: 0; list-style: none; font-size: var(--text-xs); color: var(--color-subtle); }
+    .legend li { display: inline-flex; align-items: center; gap: 0.35rem; }
+    .narrative { margin-top: var(--space-5); max-width: var(--measure); }
+    .narrative p { margin: 0 0 var(--space-3); }
+    .fine { font-size: var(--text-xs); color: var(--color-muted); max-width: var(--measure); }
+
+    @media (max-width: 600px) {
+      .page-title { font-size: 1.4rem; }
+      .now .card { grid-template-columns: 5.5rem 1fr; }
+      .now .cover, .now .placeholder { width: 5.5rem; }
+      .shelf { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4) var(--space-2); }
+      .book { font-size: 0.78rem; }
+      .cols { gap: var(--space-2); height: 12rem; }
+      .years { gap: var(--space-2); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <p class="site-name"><a href="../">Kevin Guiang</a></p>
+      <a href="../">&larr; Home</a>
+    </header>
+    <section class="page-intro">
+      <p class="section-label">Books</p>
+      <h1 class="page-title">Where I&rsquo;ve been, and where I&rsquo;m going</h1>
+      <p class="lede">What I&rsquo;m reading now, everything I&rsquo;ve logged as read (grouped by subject), how my reading has shifted year by year, and the list of what&rsquo;s next.</p>
+      <ul class="stats" id="stats"></ul>
+    </section>
+  </div>
+
+  <nav class="page-nav" aria-label="Sections">
+    <div class="container"><ul>
+      <li><a href="#now">Reading now</a></li>
+      <li><a href="#been">Where I&rsquo;ve been</a></li>
+      <li><a href="#evolution">How it evolved</a></li>
+      <li><a href="#going">Where I&rsquo;m going</a></li>
+    </ul></div>
+  </nav>
+
+  <main class="container">
+    <section class="section" id="now" aria-labelledby="h-now">
+      <p class="section-label">Currently reading</p>
+      <h2 class="section-title" id="h-now">Reading now</h2>
+      <div class="now" id="now-list"></div>
+    </section>
+
+    <section class="section" id="been" aria-labelledby="h-been">
+      <p class="section-label">Read</p>
+      <h2 class="section-title" id="h-been">Where I&rsquo;ve been</h2>
+      <p class="section-note" id="been-note"></p>
+      <div class="fivestar" id="fivestar"></div>
+      <div class="filters" id="filters" role="group" aria-label="Filter by category"></div>
+      <div id="been-list"></div>
+    </section>
+
+    <section class="section" id="evolution" aria-labelledby="h-evo">
+      <p class="section-label">Over time</p>
+      <h2 class="section-title" id="h-evo">How it evolved</h2>
+      <p class="section-note" id="evo-note"></p>
+      <div class="charts">
+        <figure style="margin:0">
+          <p class="chart-title">Books finished per year</p>
+          <div class="cols" id="chart-cols" aria-hidden="true"></div>
+          <div class="years" id="chart-years" aria-hidden="true"></div>
+        </figure>
+        <figure style="margin:0">
+          <p class="chart-title">Category mix per year (share of that year&rsquo;s books)</p>
+          <div class="share" id="chart-share" aria-hidden="true"></div>
+        </figure>
+      </div>
+      <ul class="legend" id="legend"></ul>
+      <div class="visually-hidden"><table id="chart-table"></table></div>
+      <div class="narrative">
+        <p><strong>2019&ndash;2020: markets.</strong> 13 of the 22 books dated 2019 were about investing or Wall Street history, and 9 of the 19 in 2020.</p>
+        <p><strong>2021&ndash;2022: a lull, then a wider mix.</strong> Only 4 books are dated 2021. In 2022 (11 books) finance was still the biggest group (5), but sports and food turned up for the first time.</p>
+        <p><strong>2023: the turn to biology.</strong> Of 18 books, none were about finance. Biotech, genetics and medicine led with 7, most of them read in June and July, followed by sports (5) and health (3).</p>
+        <p><strong>2024: the biggest year.</strong> 33 books, the last one finished in mid-August. Health, brain and longevity (7) and sports (7) led, then biotech (6), a run of four wine books in July and August, and AI (4). Only 3 of the 33 were about finance.</p>
+        <p><strong>Next:</strong> the to-read list points the same way. It is mostly sports and football (7), AI (6), biotech (4) and the raw materials behind technology (3).</p>
+      </div>
+      <p class="fine" id="evo-fine"></p>
+    </section>
+
+    <section class="section" id="going" aria-labelledby="h-going">
+      <p class="section-label">To read</p>
+      <h2 class="section-title" id="h-going">Where I&rsquo;m going</h2>
+      <p class="section-note" id="going-note"></p>
+      <div id="going-list"></div>
+    </section>
+  </main>
+
+  <footer class="container site-footer">
+    <p>Data comes from my Goodreads library export. Only titles, authors, ratings, dates and shelves are published. The Goodreads &ldquo;currently reading&rdquo; shelf was out of date, so the two books above are picked by hand. I sorted books into categories myself.</p>
+    <p>Covers are from <a href="https://openlibrary.org/">Open Library</a>. Books without a cover show a plain placeholder.</p>
+    <p><a href="../">&larr; Back to home</a></p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+  (function () {
+    const D = window.BOOKS;
+    const CAT = Object.fromEntries(D.categories.map(c => [c.key, c]));
+    CAT.unsorted = CAT.unsorted || { key: "unsorted", name: "Unsorted", color: "#bbb", blurb: "" };
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const $ = id => document.getElementById(id);
+    const read = D.books.filter(b => b.s === "read");
+    const toRead = D.books.filter(b => b.s === "to-read");
+    const dated = read.filter(b => b.d);
+    const years = [...new Set(dated.map(b => b.d.slice(0, 4)))].sort();
+    const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const fmtDate = d => MONTHS[+d.slice(5, 7) - 1] + " " + d.slice(0, 4);
+    const count = (arr, f) => arr.reduce((m, x) => (m[f(x)] = (m[f(x)] || 0) + 1, m), {});
+
+    // Stats
+    $("stats").innerHTML = [
+      [read.length, "read"], [dated.length, "with a date, " + years[0] + "–" + years[years.length - 1]],
+      [read.filter(b => b.r === 5).length, "five-star"], [toRead.length, "to read"], [D.current.length, "reading now"]
+    ].map(([n, l]) => `<li><span class="num">${n}</span><span class="lbl">${esc(l)}</span></li>`).join("");
+
+    // Covers
+    function jacket(b, big) {
+      const alt = esc(b.t) + " cover";
+      const src = "covers/" + b.id + ".webp";
+      if (b.cv) return `<img src="${src}" alt="${alt}" loading="lazy" decoding="async" width="240" height="360"${big ? ' class="cover"' : ""}>`;
+      return `<div class="placeholder"${big ? "" : ""}><span class="pt">${esc(b.t)}</span><span class="pn">no cover</span></div>`;
+    }
+    const gr = id => "https://www.goodreads.com/book/show/" + encodeURIComponent(id);
+    const stars = r => r ? `<span class="stars" aria-label="${r} out of 5 stars">${"★".repeat(r)}${"☆".repeat(5 - r)}</span>` : "";
+    function bookLi(b) {
+      const c = CAT[b.c] || CAT.unsorted, five = b.r === 5;
+      const when = b.s === "read" ? (b.d ? "Read " + fmtDate(b.d) : "Read, undated") : (b.y ? "Published " + b.y : "");
+      return `<li class="book${five ? " five" : ""}">
+        <span class="jacket">${jacket(b)}${five ? '<span class="badge badge--accent five-badge">5★</span>' : ""}<span class="bar" style="background:${c.color}" title="${esc(c.name)}"></span></span>
+        <div class="ti"><a href="${gr(b.id)}" target="_blank" rel="noopener" title="${esc(b.t + (b.st ? ": " + b.st : ""))}">${esc(b.t)}</a></div>
+        <div class="au">${esc(b.a)}</div>
+        <div class="dt">${esc(when)}${b.r ? " · " + stars(b.r) : ""}</div>
+      </li>`;
+    }
+    const sortRead = (a, b) => (b.d || "").localeCompare(a.d || "") || (b.r || 0) - (a.r || 0) || a.t.localeCompare(b.t);
+
+    // Reading now
+    $("now-list").innerHTML = D.current.map(b => {
+      const c = CAT[b.category] || CAT.unsorted;
+      const img = b.cv ? `<img class="cover" src="covers/${esc(b.id)}.webp" alt="${esc(b.title)} cover" width="240" height="360">`
+                       : `<div class="placeholder"><span style="color:var(--color-text);font-size:.85rem">${esc(b.title)}</span><span>${esc(b.author)}</span><span style="font-size:.6rem;letter-spacing:.06em;text-transform:uppercase">no cover yet</span></div>`;
+      return `<article class="card">${img}<div>
+        <h3>${esc(b.title)}</h3>${b.subtitle ? `<p class="st">${esc(b.subtitle)}</p>` : ""}
+        <p class="meta">${esc(b.author)} <span class="muted">· ${esc(b.publisher)}, ${esc(b.published)}</span></p>
+        <p class="note">${esc(b.note)}</p>
+        <p class="meta"><span class="swatch" style="background:${c.color}"></span> <span class="subtle">${esc(c.name)}</span> · <a href="${esc(b.link)}" target="_blank" rel="noopener">Publisher page</a></p>
+      </div></article>`;
+    }).join("");
+
+    // Where I've been
+    const undated = read.length - dated.length;
+    $("been-note").textContent = `${read.length} books, grouped by subject. Covers outlined in the accent colour are my five-star picks. Stars show where I rated a book; most of my ratings are on books logged before 2019.`;
+    const fives = read.filter(b => b.r === 5).sort(sortRead);
+    $("fivestar").innerHTML = `<p class="section-label">Five-star shelf · ${fives.length}</p><ul class="shelf">${fives.map(bookLi).join("")}</ul>`;
+    const readCounts = count(read, b => b.c);
+    const readCats = D.categories.filter(c => readCounts[c.key]).sort((a, b) => readCounts[b.key] - readCounts[a.key]);
+    if (readCounts.unsorted) readCats.push(CAT.unsorted);
+    let active = "all";
+    function renderFilters() {
+      $("filters").innerHTML = [`<button type="button" class="chip" data-k="all" aria-pressed="${active === "all"}">All <span class="count">${read.length}</span></button>`]
+        .concat(readCats.map(c => `<button type="button" class="chip" data-k="${c.key}" aria-pressed="${active === c.key}"><span class="swatch" style="background:${c.color}"></span>${esc(c.name)} <span class="count">${readCounts[c.key]}</span></button>`)).join("");
+    }
+    function renderBeen() {
+      const cats = active === "all" ? readCats : readCats.filter(c => c.key === active);
+      $("been-list").innerHTML = cats.map(c => {
+        const list = read.filter(b => b.c === c.key).sort(sortRead);
+        return `<div class="cat-block"><div class="cat-head"><span class="swatch" style="background:${c.color}"></span><h3>${esc(c.name)}</h3><span class="n">${list.length}</span>${c.blurb ? `<span class="blurb">${esc(c.blurb)}</span>` : ""}</div><ul class="shelf">${list.map(bookLi).join("")}</ul></div>`;
+      }).join("");
+    }
+    $("filters").addEventListener("click", e => {
+      const btn = e.target.closest("button[data-k]"); if (!btn) return;
+      active = btn.dataset.k; renderFilters(); renderBeen();
+    });
+    renderFilters(); renderBeen();
+
+    // Evolution
+    const byYear = Object.fromEntries(years.map(y => [y, count(dated.filter(b => b.d.startsWith(y)), b => b.c)]));
+    const totals = Object.fromEntries(years.map(y => [y, Object.values(byYear[y]).reduce((a, b) => a + b, 0)]));
+    const max = Math.max(...Object.values(totals));
+    const order = D.categories.map(c => c.key).concat(["unsorted"]);
+    const used = order.filter(k => years.some(y => byYear[y][k]));
+    $("chart-cols").innerHTML = years.map(y => {
+      const t = totals[y];
+      const segs = used.filter(k => byYear[y][k]).map(k => `<span class="seg" style="height:${(byYear[y][k] / max) * 100}%;background:${CAT[k].color}" title="${esc(CAT[k].name)}: ${byYear[y][k]}"></span>`).join("");
+      return `<div class="col" style="height:100%"><div style="display:flex;flex-direction:column-reverse;height:100%;position:relative">${segs}<span class="total" style="bottom:calc(${(t / max) * 100}% + 2px)">${t}</span></div></div>`;
+    }).join("");
+    $("chart-years").innerHTML = years.map(y => `<span>${y}</span>`).join("");
+    $("chart-share").innerHTML = years.map(y => {
+      const t = totals[y];
+      const segs = used.filter(k => byYear[y][k]).map(k => `<span style="width:${(byYear[y][k] / t) * 100}%;background:${CAT[k].color}" title="${esc(CAT[k].name)}: ${byYear[y][k]} of ${t}"></span>`).join("");
+      return `<span class="y">${y}</span><div class="row">${segs}</div><span class="n">${t}</span>`;
+    }).join("");
+    $("legend").innerHTML = used.map(k => `<li><span class="swatch" style="background:${CAT[k].color}"></span>${esc(CAT[k].name)}</li>`).join("");
+    $("chart-table").innerHTML = `<caption>Books finished per year by category</caption><thead><tr><th>Year</th>${used.map(k => `<th>${esc(CAT[k].name)}</th>`).join("")}<th>Total</th></tr></thead><tbody>` +
+      years.map(y => `<tr><th>${y}</th>${used.map(k => `<td>${byYear[y][k] || 0}</td>`).join("")}<td>${totals[y]}</td></tr>`).join("") + "</tbody>";
+    const jan1 = dated.filter(b => b.d.endsWith("-01-01")).length;
+    $("evo-note").textContent = `Based on the ${dated.length} read books that have a Date Read on Goodreads. Each year counts the books finished in that year.`;
+    $("evo-fine").textContent = `The timeline leaves out ${undated} read books with no Date Read. I did not fall back to Date Added, because most of those books were logged in a single import on 10 Nov 2018. ${jan1} dates are recorded as 1 January and are probably approximate, but the year should still be right.`;
+
+    // Where I'm going
+    const trCounts = count(toRead, b => b.c);
+    const trCats = D.categories.filter(c => trCounts[c.key]).sort((a, b) => trCounts[b.key] - trCounts[a.key]);
+    if (trCounts.unsorted) trCats.push(CAT.unsorted);
+    $("going-note").textContent = `${toRead.length} books on the to-read list, grouped the same way.`;
+    $("going-list").innerHTML = trCats.map(c => {
+      const list = toRead.filter(b => b.c === c.key).sort((a, b) => a.t.localeCompare(b.t));
+      return `<div class="cat-block"><div class="cat-head"><span class="swatch" style="background:${c.color}"></span><h3>${esc(c.name)}</h3><span class="n">${list.length}</span></div><ul class="shelf">${list.map(bookLi).join("")}</ul></div>`;
+    }).join("");
+  })();
+  </script>
+</body>
+</html>
