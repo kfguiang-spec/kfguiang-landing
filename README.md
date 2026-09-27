@@ -37,11 +37,10 @@ When you want `https://landing.kfguiang.co/`:
 |------|---------|
 | `/` (document root) | This landing page (`index.html`, `style.css`) |
 | `/blog/` | WordPress site (moved under `public_html/blog`) |
-| `/music/` | Future page (placeholder; may 404 until built) |
-| `/records/` | Record store: music-discovery crates (`records/index.html` + `records/covers/`). Linked with a relative path (`records/`) so it works on both GitHub Pages and the custom domain |
+| `/music/` | Record store: branching music-discovery crates (`music/index.html` + `music/covers/`) |
 | Wine link | External: [WSET tasting guide](https://kfguiang-spec.github.io/wset-tasting-guide/) |
 
-Blog and Music use root-relative paths (`/blog/`, `/music/`) so the same files work on the custom domain document root.
+Blog uses a root-relative path (`/blog/`) so it works on the custom domain document root. Music is a page in this repo, so it is linked relatively (`music/`, and `../` back to home); that works both on the GitHub Pages project URL and on a custom domain root.
 
 ## Deploy to GoDaddy (cPanel) — checklist
 
@@ -71,16 +70,16 @@ Do this in cPanel File Manager (or FTP). **Do not** skip the WordPress move if W
 2. Upload the **contents** of this repo’s site root into `public_html`:
    - `index.html`
    - `style.css`
+   - the `music/` folder (record store page + covers)
    - (Do **not** upload `README.md` unless you want it public.)
 3. Confirm `public_html/index.html` exists alongside `public_html/blog/`.
 4. Visit `https://YOURDOMAIN.com/` — you should see the landing page.
 5. Click **Blog** → should go to `/blog/`.
 6. Click **Wine** → external WSET guide.
-7. Click **Music** → `/music/` (404 until you add that page — expected).
+7. Click **Music** → `/music/` (record store).
 
 ### C. Optional later
 
-- Add a `public_html/music/index.html` when ready.
 - Point DNS / domain as needed; no build or Node required for this page.
 
 ## GitHub Pages (optional)
