@@ -38,6 +38,7 @@ When you want `https://landing.kfguiang.co/`:
 | `/` (document root) | This landing page (`index.html`, `style.css`) |
 | `/blog/` | WordPress site (moved under `public_html/blog`) |
 | `/music/` | Future page (placeholder; may 404 until built) |
+| `/records/` | Record store: music-discovery crates (`records/index.html` + `records/covers/`). Linked with a relative path (`records/`) so it works on both GitHub Pages and the custom domain |
 | Wine link | External: [WSET tasting guide](https://kfguiang-spec.github.io/wset-tasting-guide/) |
 
 Blog and Music use root-relative paths (`/blog/`, `/music/`) so the same files work on the custom domain document root.
