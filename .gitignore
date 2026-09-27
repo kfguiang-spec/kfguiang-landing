@@ -1,0 +1,2 @@
+# Raw data exports (e.g. Goodreads) contain private notes; never commit them
+*.csv

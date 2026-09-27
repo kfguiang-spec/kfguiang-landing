@@ -39,8 +39,27 @@ When you want `https://landing.kfguiang.co/`:
 | `/blog/` | WordPress site (moved under `public_html/blog`) |
 | `/music/` | Future page (placeholder; may 404 until built) |
 | Wine link | External: [WSET tasting guide](https://kfguiang-spec.github.io/wset-tasting-guide/) |
+| `/books/` | Books page: currently reading, read books by category, reading over time, to-read list (`books/index.html`, `books/data.js`, `books/covers/`) |
 
 Blog and Music use root-relative paths (`/blog/`, `/music/`) so the same files work on the custom domain document root.
+
+## Theme
+
+All pages share `assets/site.css`. See [THEME.md](THEME.md) for the tokens and components new pages should use.
+
+## Books page data
+
+`books/data.js` is generated from a Goodreads library export (Goodreads → My Books → Import and export → Export library):
+
+```bash
+python3 scripts/build_books.py ~/Downloads/goodreads_library_export.csv            # rebuild data
+python3 scripts/build_books.py ~/Downloads/goodreads_library_export.csv --covers   # also fetch missing covers (needs Pillow)
+```
+
+- Categories live in `scripts/book_categories.json` (Goodreads Book Id → category). New books show up as "unsorted" and the script lists them, so add them there.
+- Category names and colours, and the hand-picked "currently reading" books, live in `scripts/books_config.json`. The Goodreads currently-reading shelf is ignored because it is stale.
+- Only title, author, year, rating, dates and shelf are published. Reviews and private notes are never read. Don't commit the raw CSV (`*.csv` is gitignored).
+- The short narrative under "How it evolved" is hand-written from the data in `books/index.html`. Update it if the numbers change.
 
 ## Deploy to GoDaddy (cPanel) — checklist
 

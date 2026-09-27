@@ -1,0 +1,43 @@
+{
+  "categories": [
+    {"key": "investing",  "name": "Investing & Trading",            "color": "#2f4b7c", "blurb": "Value investing, trader interviews, risk and market psychology."},
+    {"key": "wallstreet", "name": "Wall Street & Economic History", "color": "#6a8cc7", "blurb": "Narrative histories of banks, funds, crises and the Fed."},
+    {"key": "business",   "name": "Business & Founders",            "color": "#8a6fb0", "blurb": "Founder biographies and building companies."},
+    {"key": "biotech",    "name": "Biotech, Genetics & Medicine",   "color": "#2e8b7a", "blurb": "Gene editing, cancer, drug discovery and the business of biotech."},
+    {"key": "health",     "name": "Health, Brain & Longevity",      "color": "#86c2a2", "blurb": "Sleep, breath, metabolism, dopamine, psychedelics, ageing."},
+    {"key": "ai",         "name": "AI, Tech & Science",             "color": "#d08c2e", "blurb": "AI, chips, intelligence and big-picture science."},
+    {"key": "materials",  "name": "Raw Materials & Geopolitics",    "color": "#a36a3f", "blurb": "Minerals and supply chains behind modern technology."},
+    {"key": "sports",     "name": "Sports",                         "color": "#c4553b", "blurb": "Football tactics and clubs, tennis greats, coaching."},
+    {"key": "food",       "name": "Food & Wine",                    "color": "#b58aa5", "blurb": "Chefs' memoirs, sommeliers and wine dynasties."},
+    {"key": "ideas",      "name": "History, Society & Big Ideas",   "color": "#9a9a3c", "blurb": "Human history, American history, social science."},
+    {"key": "philosophy", "name": "Philosophy & Classics",          "color": "#6b6b6b", "blurb": "Political philosophy and classic texts."},
+    {"key": "self",       "name": "Self & Work",                    "color": "#9fb3c8", "blurb": "Focus, principles, people, a well-designed life."},
+    {"key": "memoir",     "name": "Memoir & Fiction",               "color": "#c9a227", "blurb": "Personal stories and the odd novel."}
+  ],
+  "current": [
+    {
+      "id": "cur-protocols",
+      "title": "Protocols",
+      "subtitle": "An Operating Manual for the Human Body",
+      "author": "Andrew D. Huberman",
+      "publisher": "S&S/Simon Element",
+      "published": "2026",
+      "isbn13": "9781668032145",
+      "category": "health",
+      "note": "Science-based routines for sleep, exercise, stress, nutrition, light, focus and personal growth.",
+      "link": "https://www.simonandschuster.net/books/Protocols/Andrew-D-Huberman/9781668032145"
+    },
+    {
+      "id": "cur-fabulous-debt",
+      "title": "A Fabulous Debt",
+      "subtitle": "The Epic Story of How Bonds Built the Modern World",
+      "author": "Robin Wigglesworth",
+      "publisher": "Portfolio",
+      "published": "2026",
+      "isbn13": "9780593719183",
+      "category": "wallstreet",
+      "note": "The FT's Robin Wigglesworth (Trillions) on the history of the bond market, from medieval Venice to BlackRock.",
+      "link": "https://www.penguinrandomhouse.com/books/750210/a-fabulous-debt-by-robin-wigglesworth/"
+    }
+  ]
+}
