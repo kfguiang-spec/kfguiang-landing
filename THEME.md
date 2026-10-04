@@ -70,4 +70,5 @@ Headings stay at weight 400 (regular) to match the landing page. Use bold only f
 |---|---|
 | `index.html` (landing) | yes: links `assets/site.css`, keeps its own inline layout |
 | `books/` | yes |
-| `music/` record store (PR #1) | not yet, to be reworked to the theme later |
+| `music/` record store (branching music-discovery crates) | not yet, to be reworked to the theme later |
+| `timeline/` (Art, Ideas & Machines) | yes |

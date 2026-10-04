@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Art, Ideas & Machines: a slideshow of art periods from the Renaissance to generative AI, with what was happening in philosophy and technology at the same time.">
+  <title>Art, Ideas &amp; Machines — Kevin Guiang</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/site.css">
+  <style>
+    /* Page-specific styles only; shared tokens and components live in assets/site.css.
+       The accent marks one thing on this page: the period you are looking at. */
+    html { scroll-behavior: smooth; }
+
+    /* Period strip (mini-timeline) */
+    .strip-wrap { position: relative; margin: 0 0 var(--space-4); }
+    .strip { list-style: none; margin: 0; padding: 0 0 var(--space-2); display: flex; gap: 2px; overflow-x: auto; scrollbar-width: thin; border-bottom: 1px solid var(--color-line); }
+    .strip li { flex: none; }
+    .strip button { font: inherit; background: none; border: 0; border-top: 3px solid var(--color-line); padding: var(--space-2) var(--space-2) 0; min-width: 5.5rem; text-align: left; cursor: pointer; color: var(--color-subtle); line-height: 1.25; }
+    .strip button:hover { border-top-color: var(--color-text); color: var(--color-text); }
+    .strip button:focus-visible { outline: 2px solid var(--color-text); outline-offset: 2px; }
+    .strip .yr { display: block; font-size: var(--text-xs); color: var(--color-muted); letter-spacing: 0.02em; }
+    .strip .nm { display: block; font-size: var(--text-sm); white-space: nowrap; }
+    .strip button[aria-current="true"] { border-top-color: var(--color-accent); color: var(--color-text); }
+    .strip button[aria-current="true"] .yr { color: var(--color-accent); }
+    .strip .era-break { border-left: 1px solid var(--color-line); margin-left: var(--space-2); padding-left: var(--space-2); }
+
+    /* Slide controls */
+    .controls { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin: 0 0 var(--space-4); }
+    .controls .count { font-size: var(--text-sm); color: var(--color-subtle); }
+    .controls .btns { display: flex; gap: var(--space-2); }
+    .controls .hint { font-size: var(--text-xs); color: var(--color-muted); }
+    @media (max-width: 600px) { .controls .hint { display: none; } }
+
+    /* Slide */
+    .slide { display: grid; grid-template-columns: minmax(16rem, 24rem) 1fr; gap: var(--space-6); align-items: start; min-height: 22rem; touch-action: pan-y; }
+    .slide.enter { animation: fade .25s ease-out; }
+    @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+    .slide .range { margin: 0 0 var(--space-1); font-size: var(--text-sm); color: var(--color-subtle); }
+    .slide h2 { margin: 0 0 var(--space-3); font-size: var(--text-xl); font-weight: 400; line-height: 1.2; }
+    .slide .desc { margin: 0 0 var(--space-4); }
+    .slide .artists { margin: 0; padding: 0; list-style: none; font-size: var(--text-sm); }
+    .slide .artists li { display: inline; white-space: nowrap; }
+    .slide .artists li:not(:last-child)::after { content: " ·"; color: var(--color-muted); }
+
+    /* Artworks: a justified row, each figure grows with its aspect ratio */
+    .works { --row-h: 12rem; display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-3); align-items: flex-start; }
+    .work { margin: 0; min-width: 0; }
+    .work img { display: block; width: 100%; height: auto; background: var(--color-surface); box-shadow: var(--shadow-card); }
+    .work .frame { display: block; text-decoration: none; }
+    .work--ph { flex: 0.8 1 calc(0.8 * var(--row-h)); max-width: 16rem; }
+    .work .ph { aspect-ratio: 4 / 5; width: 100%; padding: var(--space-3); text-decoration: none; color: var(--color-subtle); font-size: var(--text-xs); }
+    .work .ph:hover { border-color: var(--color-text); }
+    .work .ph .pt { color: var(--color-text); font-size: var(--text-sm); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+    .work .ph .pa { display: block; margin-top: var(--space-1); }
+    .work .ph .pn { font-size: 0.625rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-muted); }
+    .work .ph .go { text-decoration: underline; text-underline-offset: .15em; color: var(--color-text); }
+    /* Slides with only placeholder cards: an even grid instead of a justified row */
+    .works--ph { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); }
+    .works--ph .work--ph { max-width: none; }
+    .works--ph .work .ph { aspect-ratio: auto; min-height: 11rem; gap: var(--space-3); }
+    .work figcaption { margin-top: var(--space-2); font-size: var(--text-xs); line-height: 1.35; color: var(--color-subtle); }
+    .work figcaption .wt { display: block; color: var(--color-text); font-size: var(--text-sm); font-style: italic; }
+    .work figcaption .wn { display: block; color: var(--color-muted); }
+
+    /* Lanes under the slideshow */
+    .lanes { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+    .lane h3 { margin: 0 0 var(--space-3); padding-bottom: var(--space-2); border-bottom: 1px solid var(--color-text); font-size: var(--text-xs); font-weight: 400; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-subtle); }
+    .lane ol { list-style: none; margin: 0; padding: 0; }
+    .lane li { display: grid; grid-template-columns: 4.5rem 1fr; gap: var(--space-3); padding: var(--space-2) 0; border-bottom: 1px solid var(--color-line); font-size: var(--text-sm); line-height: 1.4; }
+    .lane .y { color: var(--color-muted); font-variant-numeric: tabular-nums; }
+    .lane .t { display: block; font-weight: 700; }
+    .lane .n { display: block; color: var(--color-subtle); }
+    .lane .src { color: var(--color-muted); font-size: var(--text-xs); white-space: nowrap; text-underline-offset: .15em; }
+    .lane .src:hover { color: var(--color-text); }
+    .cross { margin-top: var(--space-5); background: var(--color-surface); border-color: var(--color-surface); max-width: 52rem; }
+    .cross p:last-child { margin: 0; }
+
+    /* Overview: every period as a column, three lanes as rows */
+    .ov-scroll { overflow-x: auto; border: 1px solid var(--color-line); border-radius: var(--radius); scrollbar-width: thin; }
+    .ov { display: grid; width: max-content; grid-template-columns: 6.5rem; grid-auto-columns: 13.5rem; grid-template-rows: auto auto auto auto; grid-auto-flow: column; font-size: var(--text-xs); line-height: 1.35; }
+    .ov > div { padding: var(--space-2) var(--space-3); border-right: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); }
+    .ov .rl { position: sticky; left: 0; z-index: 1; background: var(--color-bg); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-muted); }
+    .ov .hd { padding: 0; border-top: 3px solid transparent; }
+    .ov .hd button { font: inherit; text-align: left; width: 100%; height: 100%; background: none; border: 0; padding: var(--space-2) var(--space-3); cursor: pointer; color: var(--color-text); }
+    .ov .hd button:hover .on { text-decoration: underline; }
+    .ov .hd .on { display: block; font-size: var(--text-sm); }
+    .ov .hd .or { display: block; color: var(--color-muted); }
+    .ov ul { list-style: none; margin: 0; padding: 0; }
+    .ov li { margin: 0 0 var(--space-1); }
+    .ov li b { font-weight: 400; color: var(--color-muted); font-variant-numeric: tabular-nums; }
+    .ov .art em { color: var(--color-text); }
+    .ov .art .who { color: var(--color-subtle); margin-bottom: var(--space-2); }
+    .ov .cur { background: var(--color-accent-soft); }
+    .ov .hd.cur { border-top-color: var(--color-accent); }
+    .ov .hd.cur .or { color: var(--color-accent); }
+    .ov-note { margin-top: var(--space-2); }
+
+    /* Credits */
+    .credits { margin: 0; padding: 0; list-style: none; columns: 2 22rem; column-gap: var(--space-6); font-size: var(--text-xs); color: var(--color-subtle); }
+    .credits li { break-inside: avoid; margin: 0 0 var(--space-2); }
+    .credits i { color: var(--color-text); }
+
+    @media (max-width: 860px) {
+      .slide { grid-template-columns: 1fr; gap: var(--space-4); min-height: 0; }
+      .works { --row-h: 9.5rem; }
+    }
+    @media (max-width: 600px) {
+      .page-title { font-size: 1.4rem; }
+      .slide h2 { font-size: 1.4rem; }
+      .lanes { grid-template-columns: 1fr; gap: var(--space-5); }
+      .lane li { grid-template-columns: 3.75rem 1fr; gap: var(--space-2); }
+      .works { --row-h: 8rem; }
+      .work--ph { flex: 1 1 calc(50% - var(--space-3)); max-width: none; }
+      .work .ph { aspect-ratio: auto; min-height: 9.5rem; gap: var(--space-3); }
+      .ov { grid-template-columns: 4.75rem; grid-auto-columns: 12rem; }
+      .page-nav ul { gap: var(--space-4); }
+      .page-nav li { font-size: 0.875rem; }
+      .stats { display: grid; grid-template-columns: 1fr 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) { .slide.enter { animation: none; } html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <p class="site-name"><a href="../">Kevin Guiang</a></p>
+      <a href="../">&larr; Home</a>
+    </header>
+    <section class="page-intro">
+      <p class="section-label">Timeline</p>
+      <h1 class="page-title">Art, Ideas &amp; Machines</h1>
+      <p class="lede">A map of how art, philosophy and technology have moved together, from the High Renaissance and the Enlightenment to generative AI. Step through the art periods. Under each one you&rsquo;ll see what thinkers and inventors were doing at the same time, and where the three crossed. The last two and a half decades get the most room.</p>
+      <ul class="stats" id="stats"></ul>
+    </section>
+  </div>
+
+  <nav class="page-nav" aria-label="Sections">
+    <div class="container"><ul>
+      <li><a href="#periods">Periods</a></li>
+      <li><a href="#lanes">Ideas &amp; inventions</a></li>
+      <li><a href="#overview">Whole map</a></li>
+      <li><a href="#credits">Credits</a></li>
+    </ul></div>
+  </nav>
+
+  <main class="container">
+    <section class="section" id="periods" aria-labelledby="h-periods" aria-roledescription="carousel">
+      <p class="section-label" id="h-periods">Art periods</p>
+      <div class="strip-wrap">
+        <ol class="strip" id="strip" aria-label="Jump to a period"></ol>
+      </div>
+      <div class="controls">
+        <span class="count" id="count" aria-live="polite"></span>
+        <span class="hint">Use &larr; &rarr; keys, or swipe on a phone</span>
+        <span class="btns">
+          <button type="button" class="chip" id="prev" aria-label="Previous period">&larr; Prev</button>
+          <button type="button" class="chip" id="next" aria-label="Next period">Next &rarr;</button>
+        </span>
+      </div>
+      <article class="slide" id="slide" aria-roledescription="slide"></article>
+    </section>
+
+    <section class="section" id="lanes" aria-labelledby="h-lanes">
+      <p class="section-label">Meanwhile</p>
+      <h2 class="section-title" id="h-lanes">Ideas &amp; inventions</h2>
+      <p class="section-note" id="lanes-note"></p>
+      <div class="lanes">
+        <div class="lane"><h3>Philosophy &amp; ideas</h3><ol id="lane-phil"></ol></div>
+        <div class="lane"><h3>Technology &amp; science</h3><ol id="lane-tech"></ol></div>
+      </div>
+      <div class="card cross">
+        <p class="section-label">Crossovers</p>
+        <p id="cross"></p>
+      </div>
+    </section>
+
+    <section class="section" id="overview" aria-labelledby="h-overview">
+      <p class="section-label">All at once</p>
+      <h2 class="section-title" id="h-overview">The whole map</h2>
+      <p class="section-note">Every period side by side, with its art, ideas and technology stacked. Scroll sideways; the highlighted column is the period shown above. Click a column heading to jump to it. Columns are periods, not to scale, so recent decades get as much room as whole centuries.</p>
+      <div class="ov-scroll" id="ov-scroll" tabindex="0" aria-label="Overview of all periods, scrollable sideways">
+        <div class="ov" id="ov"></div>
+      </div>
+    </section>
+
+    <section class="section" id="credits" aria-labelledby="h-credits">
+      <p class="section-label">Sources</p>
+      <h2 class="section-title" id="h-credits">Image credits</h2>
+      <p class="section-note" id="credits-note"></p>
+      <ul class="credits" id="credit-list"></ul>
+    </section>
+  </main>
+
+  <footer class="container site-footer">
+    <p>Periods overlap and their dates are approximate; the date on each event is the year it happened or was published. I picked the artists, works and events, checked them against museum and reference sources, and wrote the notes myself.</p>
+    <p>Pre-1931 artwork images are public-domain scans from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a> (two are freely licensed photographs: Caravaggio’s painting in its chapel and the Bauhaus building), listed under Image credits and in <code>timeline/CREDITS.md</code>. Works still in copyright appear as plain cards that link to the work.</p>
+    <p><a href="../">&larr; Back to home</a></p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+  (function () {
+    const D = window.TIMELINE, P = D.periods, C = D.credits;
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let idx = 0;
+
+    // Stats
+    const nImg = P.reduce((n, p) => n + p.works.filter(w => w.img).length, 0);
+    const nEv = P.reduce((n, p) => n + p.phil.length + p.tech.length, 0);
+    $("stats").innerHTML = [[P.length, "periods"], [P.filter(p => p.start >= 2000).length, "since 2000"], [nEv, "dated events"], [nImg, "artwork images"]]
+      .map(([n, l]) => `<li><span class="num">${n}</span><span class="lbl">${l}</span></li>`).join("");
+
+    // Period strip
+    $("strip").innerHTML = P.map((p, i) => `<li${p.start >= 2000 && P[i - 1] && P[i - 1].start < 2000 ? ' class="era-break"' : ""}><button type="button" data-i="${i}" aria-label="${esc(p.name)}, ${esc(p.range)}"><span class="yr">${p.start}</span><span class="nm">${esc(p.short)}</span></button></li>`).join("");
+    $("strip").addEventListener("click", e => { const b = e.target.closest("button[data-i]"); if (b) go(+b.dataset.i); });
+
+    // Works
+    function work(w) {
+      const cap = `<figcaption><span class="wt">${esc(w.t)}</span>${esc(w.a)}, ${esc(w.y)}${w.where ? `<span class="wn">${esc(w.where)}</span>` : ""}${w.note ? `<span class="wn">${esc(w.note)}</span>` : ""}</figcaption>`;
+      if (w.img) {
+        const ar = w.w / w.h, cr = C[w.img];
+        return `<figure class="work" style="flex:${ar.toFixed(3)} 1 calc(${ar.toFixed(3)} * var(--row-h));max-width:calc(${ar.toFixed(3)} * 20rem)">
+          <a class="frame" href="${esc(cr.page)}" target="_blank" rel="noopener" title="Source on Wikimedia Commons"><img src="img/${w.img}.webp" width="${w.w}" height="${w.h}" alt="${esc(w.t)} by ${esc(w.a)}, ${esc(w.y)}" decoding="async"></a>${cap}</figure>`;
+      }
+      const sub = [w.where, w.note].filter(Boolean).map(x => `<span class="wn">${esc(x)}</span>`).join("");
+      return `<figure class="work work--ph">
+        <a class="placeholder ph" href="${esc(w.link)}" target="_blank" rel="noopener" aria-label="${esc(w.t)} by ${esc(w.a)}, ${esc(w.y)}. ${w.ex ? "Exhibition, no single image shown. Opens its page." : "Image not shown because the work is in copyright. Opens the work’s page."}"><span><span class="pt">${esc(w.t)}</span><span class="pa">${esc(w.a)}, ${esc(w.y)}</span></span><span><span class="pn">${w.ex ? "Placeholder · exhibition" : "Placeholder · image in copyright"}</span><br><span class="go">View the work &#8599;</span></span></a>${sub ? `<figcaption>${sub}</figcaption>` : ""}</figure>`;
+    }
+
+    // Lanes
+    const laneLi = ([y, t, n, src]) => `<li><span class="y">${esc(y)}</span><span><span class="t">${esc(t)}</span><span class="n">${esc(n)}${src ? ` <a class="src" href="${esc(src)}" target="_blank" rel="noopener" aria-label="Source for ${esc(t)} (opens in a new tab)">Source&nbsp;&#8599;</a>` : ""}</span></span></li>`;
+
+    function render() {
+      const p = P[idx];
+      const slide = $("slide");
+      slide.innerHTML = `<div><p class="range">${esc(p.range)}</p><h2>${esc(p.name)}</h2><p class="desc">${esc(p.desc)}</p>
+        <p class="section-label">Key artists</p><ul class="artists">${p.artists.map(a => `<li>${esc(a)}</li>`).join(" ")}</ul></div>
+        <div class="works${p.works.every(w => !w.img) ? " works--ph" : ""}">${p.works.map(work).join("")}</div>`;
+      slide.setAttribute("aria-label", `${idx + 1} of ${P.length}: ${p.name}`);
+      if (!reduce) { slide.classList.remove("enter"); void slide.offsetWidth; slide.classList.add("enter"); }
+      slide.querySelectorAll("img").forEach(img => img.addEventListener("error", () => { img.closest(".frame").outerHTML = `<div class="placeholder ph"><span class="pt">${esc(img.alt)}</span><span class="pn">Image failed to load</span></div>`; }, { once: true }));
+      $("count").textContent = `Period ${idx + 1} of ${P.length}`;
+      $("prev").disabled = idx === 0; $("next").disabled = idx === P.length - 1;
+      $("lanes-note").textContent = `What was happening in philosophy and technology ${p.when || "during " + (p.start >= 1990 ? p.range : p.name + " (" + p.range + ")")}.${p.phil.concat(p.tech).some(x => x[3]) ? " Each recent event links to its source." : ""}`;
+      $("lane-phil").innerHTML = p.phil.map(laneLi).join("");
+      $("lane-tech").innerHTML = p.tech.map(laneLi).join("");
+      $("cross").textContent = p.cross;
+      // Strip + overview highlight
+      $("strip").querySelectorAll("button").forEach((b, i) => b.setAttribute("aria-current", i === idx ? "true" : "false"));
+      $("ov").querySelectorAll(".col").forEach(el => el.classList.toggle("cur", +el.dataset.i === idx));
+      centre($("strip"), $("strip").querySelector(`button[data-i="${idx}"]`).parentElement);
+      const head = $("ov").querySelector(`.hd[data-i="${idx}"]`);
+      if (head) centre($("ov-scroll"), head, $("ov").querySelector(".rl").offsetWidth);
+      // URL + preload neighbours
+      const url = new URL(location.href); url.searchParams.set("period", p.id); history.replaceState(null, "", url);
+      [idx - 1, idx + 1].forEach(j => P[j] && P[j].works.forEach(w => { if (w.img) { const im = new Image(); im.src = `img/${w.img}.webp`; } }));
+    }
+    function centre(scroller, el, gutter) {
+      const g = gutter || 0, sr = scroller.getBoundingClientRect(), er = el.getBoundingClientRect();
+      const left = scroller.scrollLeft + (er.left - sr.left) - g - (scroller.clientWidth - g - er.width) / 2;
+      scroller.scrollTo({ left: Math.max(0, left), behavior: reduce ? "auto" : "smooth" });
+    }
+    function go(i) { if (i < 0 || i >= P.length || i === idx) return; idx = i; render(); }
+
+    $("prev").addEventListener("click", () => go(idx - 1));
+    $("next").addEventListener("click", () => go(idx + 1));
+    document.addEventListener("keydown", e => {
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+      if (e.target.closest("input, textarea, select, .ov-scroll")) return;
+      if (e.key === "ArrowLeft") { go(idx - 1); e.preventDefault(); }
+      else if (e.key === "ArrowRight") { go(idx + 1); e.preventDefault(); }
+    });
+    // Swipe
+    let sx = null, sy = 0;
+    $("slide").addEventListener("touchstart", e => { if (e.touches.length === 1) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; } }, { passive: true });
+    $("slide").addEventListener("touchend", e => {
+      if (sx === null) return;
+      const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; sx = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(idx + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+
+    // Overview grid: row labels, then one column (4 cells) per period
+    const short = s => esc(s);
+    let ov = `<div class="rl">Period</div><div class="rl">Art</div><div class="rl">Ideas</div><div class="rl">Tech</div>`;
+    P.forEach((p, i) => {
+      ov += `<div class="hd col" data-i="${i}"><button type="button" data-i="${i}"><span class="on">${esc(p.short)}</span><span class="or">${esc(p.range)}</span></button></div>`;
+      ov += `<div class="art col" data-i="${i}"><div class="who">${p.artists.map(esc).join(", ")}</div><ul>${p.works.map(w => `<li><em>${esc(w.t)}</em>, ${esc(w.y)}</li>`).join("")}</ul></div>`;
+      ov += `<div class="col" data-i="${i}"><ul>${p.phil.map(([y, t]) => `<li><b>${esc(y)}</b> ${short(t)}</li>`).join("")}</ul></div>`;
+      ov += `<div class="col" data-i="${i}"><ul>${p.tech.map(([y, t]) => `<li><b>${esc(y)}</b> ${short(t)}</li>`).join("")}</ul></div>`;
+    });
+    $("ov").innerHTML = ov;
+    $("ov").addEventListener("click", e => { const b = e.target.closest("button[data-i]"); if (!b) return; go(+b.dataset.i); $("periods").scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); });
+
+    // Credits
+    const used = [];
+    P.forEach(p => p.works.forEach(w => { if (w.img) used.push(w); }));
+    const nPh = P.reduce((n, p) => n + p.works.filter(w => !w.img).length, 0);
+    $("credits-note").textContent = `${used.length} images from Wikimedia Commons, resized for the web. ${nPh} works are still in copyright (or, for exhibitions, have no single image), so they appear as placeholder cards linking to the work’s page.`;
+    $("credit-list").innerHTML = used.map(w => { const c = C[w.img];
+      const lic = c.licenseUrl ? `<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener">${esc(c.license)}</a>` : esc(c.license);
+      return `<li><i>${esc(w.t)}</i>, ${esc(w.a)}, ${esc(w.y)}. ${c.by ? esc(c.by) + ". " : ""}<a href="${esc(c.page)}" target="_blank" rel="noopener">Commons file</a> · ${lic}</li>`; }).join("");
+
+    // Start from ?period= if present
+    const want = new URLSearchParams(location.search).get("period");
+    const start = P.findIndex(p => p.id === want);
+    idx = start >= 0 ? start : 0;
+    render();
+  })();
+  </script>
+</body>
+</html>
