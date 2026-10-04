@@ -229,6 +229,7 @@
   document.querySelectorAll("[data-walks]").forEach(b => b.addEventListener("click", () => {
     walks = b.dataset.walks === "1"; document.querySelectorAll("[data-walks]").forEach(x => x.setAttribute("aria-pressed", x === b));
     document.querySelector('#legend [data-g="walk"]').style.opacity = walks ? "" : "0.35"; hideTip(); renderAll();
+    document.dispatchEvent(new CustomEvent("wellness:walks", { detail: { walks } }));
   }));
   let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { hideTip(); renderChart(); }, 120); });
   $("rule").textContent = `${D.rule} Weeks run Monday to Sunday in ${D.timezone.replace("_", " ")} time. ${D.capped} long indoor sessions were capped. Data through ${fmtDay(toDate(D.generated))}.`;
