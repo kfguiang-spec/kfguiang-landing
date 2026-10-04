@@ -1,6 +1,6 @@
 # Kevin Guiang — personal landing
 
-Minimal static landing page: name + three links (Blog, Wine, Music). Plain HTML and CSS — no build step.
+Minimal static personal site: a home page linking to the site's own pages (Music, Books, Timeline, Blog), a set of wine tools and projects. Plain HTML, CSS and a little JS, no build step.
 
 ## Open locally
 
@@ -35,7 +35,7 @@ When you want `https://landing.kfguiang.co/`:
 
 | Path | Purpose |
 |------|---------|
-| `/` (document root) | This landing page (`index.html`, `style.css`) |
+| `/` (document root) | Home page (`index.html`, styled by `assets/site.css`; its "Reading now" teaser reads `books/data.js`) |
 | `/blog/` | WordPress site (moved under `public_html/blog`) |
 | `/music/` | Record store: branching music-discovery crates (`music/index.html` + `music/covers/`) |
 | Wine link | External: [WSET tasting guide](https://kfguiang-spec.github.io/wset-tasting-guide/) |

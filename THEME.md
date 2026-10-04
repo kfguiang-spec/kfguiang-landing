@@ -68,7 +68,7 @@ Headings stay at weight 400 (regular) to match the landing page. Use bold only f
 
 | Page | Uses the theme |
 |---|---|
-| `index.html` (landing) | yes: links `assets/site.css`, keeps its own inline layout |
+| `index.html` (home) | yes: site header, page intro, cards for the site's own pages (Music, Books, Timeline, Blog), rows for Wine tools and Projects, and a "Reading now" teaser read from `books/data.js` |
 | `books/` | yes |
 | `music/` record store (branching music-discovery crates) | not yet, to be reworked to the theme later |
 | `timeline/` (Art, Ideas & Machines) | yes |
