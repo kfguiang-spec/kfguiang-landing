@@ -40,6 +40,7 @@ When you want `https://landing.kfguiang.co/`:
 | `/music/` | Record store: branching music-discovery crates (`music/index.html` + `music/covers/`) |
 | Wine link | External: [WSET tasting guide](https://kfguiang-spec.github.io/wset-tasting-guide/) |
 | `/books/` | Books page: currently reading, read books by category, reading over time, to-read list (`books/index.html`, `books/data.js`, `books/covers/`) |
+| `/timeline/` | Art, Ideas & Machines: slideshow of art periods with philosophy and technology lanes and a whole-map overview (`timeline/index.html`, `timeline/data.js`, `timeline/img/`, image credits in `timeline/CREDITS.md`) |
 
 Blog uses a root-relative path (`/blog/`) so it works on the custom domain document root. Music is a page in this repo, so it is linked relatively (`music/`, and `../` back to home); that works both on the GitHub Pages project URL and on a custom domain root.
 
