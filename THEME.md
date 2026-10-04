@@ -72,4 +72,4 @@ Headings stay at weight 400 (regular) to match the landing page. Use bold only f
 | `books/` | yes |
 | `music/` record store (branching music-discovery crates) | not yet, to be reworked to the theme later |
 | `timeline/` (Art, Ideas & Machines) | yes |
-| `wellness/` (weekly workout hours from Strava) | yes: page intro with stats, chips, page-nav, sections; inline SVG chart; accent used only for the 8-week average line |
+| `wellness/` (weekly workout hours from Strava) | yes: page intro with stats, chips, page-nav, sections; inline SVG charts and a lookback section with year cards; accent used only for average lines (8-week rolling average, year averages) |

@@ -66,6 +66,50 @@
     .cal-legend span:first-child { margin-right: var(--space-1); }
     .cal-legend span:last-child { margin-left: var(--space-1); }
 
+    /* Lookback */
+    .lb-read { margin-bottom: var(--space-2); }
+    .lb-h { margin: var(--space-6) 0 var(--space-2); font-size: var(--text-base); font-weight: 400; }
+    .lb-note { margin: var(--space-2) 0 var(--space-3); font-size: var(--text-xs); color: var(--color-muted); max-width: var(--measure); }
+    .lb-years { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--space-4); }
+    .lb-year { padding: var(--space-4); }
+    .lb-year h3 { margin: 0; font-size: var(--text-base); font-weight: 400; }
+    .lb-year h3 small { display: block; font-size: var(--text-xs); color: var(--color-muted); }
+    .lb-big { margin: var(--space-3) 0; color: var(--color-subtle); font-size: var(--text-sm); }
+    .lb-big .num { font-size: 2rem; line-height: 1; color: var(--color-text); margin-right: 0.15em; }
+    .lb-year dl { display: grid; grid-template-columns: 1fr auto; gap: 0.3rem var(--space-3); margin: 0 0 var(--space-3); font-size: var(--text-sm); }
+    .lb-year dt { color: var(--color-subtle); }
+    .lb-year dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+    .lb-year small, .lb-ytd small { color: var(--color-muted); font-size: var(--text-xs); }
+    .lb-bar { display: flex; height: 0.75rem; border-radius: 2px; overflow: hidden; background: var(--color-surface); }
+    .lb-bar span { display: block; height: 100%; }
+    .lb-top { margin: var(--space-2) 0 0; font-size: var(--text-xs); color: var(--color-subtle); }
+    .lb-ytd-wrap { overflow-x: auto; }
+    .lb-ytd { width: 100%; max-width: 48rem; border-collapse: collapse; font-size: var(--text-sm); }
+    .lb-ytd th, .lb-ytd td { padding: var(--space-2) var(--space-3) var(--space-2) 0; border-bottom: 1px solid var(--color-line); text-align: left; font-weight: 400; vertical-align: top; }
+    .lb-ytd thead th { font-size: var(--text-xs); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-muted); border-bottom: 1px solid var(--color-text); vertical-align: bottom; }
+    .lb-ytd .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .lb-ytd .delta { color: var(--color-subtle); }
+    .lb-ytd .delta small { display: block; }
+    .lb-ytd tr.sub th { padding-top: var(--space-4); font-size: var(--text-xs); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-muted); }
+    .lb-ytd .sw { margin-right: var(--space-1); }
+    #lb-chart { display: block; width: 100%; height: auto; touch-action: pan-y; }
+    #lb-chart text, .lb-panel text { font: 11px Arial, Helvetica, sans-serif; fill: var(--color-muted); }
+    #lb-chart .grid { stroke: var(--color-line); stroke-width: 1; }
+    #lb-chart .yr, .lb-panel .yr { stroke: var(--color-muted); stroke-width: 1; stroke-dasharray: 2 3; }
+    #lb-chart .yrl { fill: var(--color-text); }
+    #lb-chart .yavg { stroke: var(--color-accent); stroke-width: 2; stroke-dasharray: 6 4; }
+    #lb-chart .hover { fill: rgba(17,17,17,.06); }
+    .sw--dash { height: 0; width: 1rem; border-radius: 0; border-top: 2px dashed var(--color-accent); }
+    .lb-multi { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-4) var(--space-5); }
+    .lb-panel { margin: 0; }
+    .lb-panel figcaption { font-size: var(--text-sm); margin-bottom: var(--space-1); }
+    .lb-panel figcaption .sw { margin-right: var(--space-1); }
+    .lb-panel figcaption small { display: block; font-size: var(--text-xs); color: var(--color-muted); }
+    .lb-panel svg { display: block; width: 100%; height: auto; }
+    .lb-panel text { font-size: 10px; }
+    .lb-panel .pk { fill: var(--color-text); }
+    .lb-panel .base { stroke: var(--color-line); }
+
     @media (max-width: 760px) {
       .mix { grid-template-columns: 1fr; gap: var(--space-5); }
     }
@@ -79,6 +123,12 @@
       .mix li { grid-template-columns: 7rem 1fr 6rem; gap: var(--space-2); }
       .cal { grid-template-columns: 2rem 1fr; gap: 2px var(--space-1); }
       .cal .cells { gap: 1px; }
+      .lb-ytd { font-size: var(--text-xs); }
+      .lb-ytd th, .lb-ytd td { padding-right: var(--space-2); }
+      .lb-ytd thead th { letter-spacing: 0; }
+      .lb-ytd .sw { display: none; }
+      .lb-multi { gap: var(--space-4); }
+      .lb-big .num { font-size: 1.6rem; }
     }
   </style>
 </head>
@@ -91,7 +141,7 @@
     <section class="page-intro">
       <p class="section-label">Wellness</p>
       <h1 class="page-title">Time spent working out</h1>
-      <p class="lede">Hours per week from my Strava history, every logged activity since 2015. Only weekly totals are published here: no maps, routes or times of day.</p>
+      <p class="lede">Hours per week from my Strava history, every logged activity since 2015. Only weekly, monthly and yearly totals are published here: no maps, routes or times of day.</p>
       <ul class="stats" id="stats"></ul>
       <div class="counting" role="group" aria-label="What to count">
         <span>Counting:</span>
@@ -104,6 +154,7 @@
   <nav class="page-nav" aria-label="Sections">
     <div class="container"><ul>
       <li><a href="#weekly">Weekly hours</a></li>
+      <li><a href="#lookback">Lookback</a></li>
       <li><a href="#changed">How it&rsquo;s changed</a></li>
       <li><a href="#mix">Activity mix</a></li>
       <li><a href="#calendar">Calendar</a></li>
@@ -127,6 +178,38 @@
         <div class="tip" id="tip" hidden></div>
       </div>
       <p class="range-sum" id="range-sum"></p>
+    </section>
+
+    <section class="section" id="lookback" aria-labelledby="h-lookback">
+      <p class="section-label">Lookback</p>
+      <div class="chart-head">
+        <h2 class="section-title" id="h-lookback">How my fitness is evolving</h2>
+        <div class="chips" role="group" aria-label="Lookback window">
+          <button type="button" class="chip" data-win="2" aria-pressed="true">Last 2 years</button>
+          <button type="button" class="chip" data-win="3" aria-pressed="false">Last 3 years</button>
+        </div>
+      </div>
+      <div class="read lb-read" id="lb-read"></div>
+
+      <h3 class="lb-h">Year by year</h3>
+      <div class="lb-years" id="lb-years"></div>
+
+      <h3 class="lb-h" id="lb-ytd-title">Same dates each year</h3>
+      <p class="lb-note">A fair comparison: the same stretch of the calendar in every year. Changes are the latest year minus the earlier one.</p>
+      <div class="lb-ytd-wrap"><table class="lb-ytd" id="lb-ytd"></table></div>
+
+      <h3 class="lb-h">Month by month</h3>
+      <ul class="legend" id="lb-legend"></ul>
+      <div class="chart-wrap" id="lb-chart-wrap">
+        <svg id="lb-chart" role="img" aria-labelledby="lb-chart-desc"><desc id="lb-chart-desc">Bar chart of hours per week in each calendar month across the lookback window, stacked by activity group, with each year's average marked.</desc></svg>
+        <div class="tip" id="lb-tip" hidden></div>
+      </div>
+      <p class="lb-note" id="lb-chart-note"></p>
+
+      <h3 class="lb-h">What changed, by group</h3>
+      <div class="lb-multi" id="lb-multi"></div>
+      <p class="lb-note" id="lb-multi-note"></p>
+      <p class="lb-note" id="lb-groups"></p>
     </section>
 
     <section class="section" id="changed" aria-labelledby="h-changed">
@@ -154,11 +237,12 @@
 
   <footer class="container site-footer">
     <p id="rule"></p>
-    <p>Data: my Strava activities, refreshed with <code>scripts/build_wellness.py</code>. Only weekly totals per activity type are published. No individual activities, names, times of day, GPS tracks, locations, heart rate or gear.</p>
+    <p>Data: my Strava activities, refreshed with <code>scripts/build_wellness.py</code>. Only weekly, monthly and yearly totals per activity type are published. No individual activities, names, times of day, GPS tracks, locations, heart rate or gear.</p>
     <p><a href="../">&larr; Back to home</a></p>
   </footer>
 
   <script src="data.js"></script>
   <script src="wellness.js"></script>
+  <script src="lookback.js"></script>
 </body>
 </html>
