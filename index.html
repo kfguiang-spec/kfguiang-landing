@@ -3,82 +3,105 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Kevin Guiang">
+  <meta name="description" content="Kevin Guiang: music, books and an art–ideas–technology timeline, plus a set of wine tools and projects.">
   <title>Kevin Guiang</title>
+  <link rel="icon" href="data:,">
   <link rel="stylesheet" href="assets/site.css">
   <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    html { -webkit-text-size-adjust: 100%; height: 100%; }
-    body {
-      margin: 0;
-      min-height: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
-      color: #111;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 1rem;
-      line-height: 1.5;
+    .home-intro { padding-bottom: var(--space-2); }
+
+    /* Site pages: a grid of whole-card links */
+    .tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+    .tile { display: flex; flex-direction: column; gap: var(--space-1); height: 100%; padding: var(--space-4) var(--space-5); color: inherit; text-decoration: none; transition: border-color .15s; }
+    .tile:hover { border-color: var(--color-text); }
+    .tile:focus-visible { outline: 2px solid var(--color-text); outline-offset: 2px; }
+    .tile .tt { font-size: var(--text-lg); line-height: 1.3; text-decoration: underline; text-underline-offset: 0.15em; text-decoration-thickness: 1px; }
+    .tile:hover .tt { text-decoration-thickness: 2px; }
+    .tile .td { color: var(--color-subtle); }
+    .tile .teaser { margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--color-line); font-size: var(--text-sm); color: var(--color-subtle); }
+    .tile .teaser .section-label { display: block; margin: 0 0 var(--space-1); color: var(--color-accent); }
+    .tile .teaser i { color: var(--color-text); }
+    .tile .teaser[hidden] { display: none; }
+
+    /* External tools and projects: rows */
+    .rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--color-text); }
+    .rows li { border-bottom: 1px solid var(--color-line); }
+    .rows a { display: grid; grid-template-columns: 14rem 1fr auto; gap: var(--space-4); align-items: baseline; padding: var(--space-3) 0; color: inherit; text-decoration: none; }
+    .rows .rt { text-decoration: underline; text-underline-offset: 0.15em; }
+    .rows a:hover .rt { text-decoration-thickness: 2px; }
+    .rows .rd { color: var(--color-subtle); font-size: var(--text-sm); }
+    .rows .ext { color: var(--color-muted); font-size: var(--text-sm); }
+
+    @media (max-width: 700px) {
+      .tiles { grid-template-columns: 1fr; gap: var(--space-3); }
+      .tile { padding: var(--space-4); }
+      .rows a { grid-template-columns: 1fr auto; gap: var(--space-1) var(--space-3); }
+      .rows .rt { grid-column: 1; grid-row: 1; }
+      .rows .ext { grid-column: 2; grid-row: 1; }
+      .rows .rd { grid-column: 1 / -1; grid-row: 2; }
     }
-    main { text-align: center; padding: 2rem 1.5rem; max-width: 22rem; }
-    h1 {
-      margin: 0 0 2rem;
-      font-size: 1.375rem;
-      font-weight: 400;
-    }
-    nav { margin: 0 0 1.75rem; }
-    nav ul { margin: 0; padding: 0; list-style: none; }
-    nav li { margin: 0 0 0.75rem; }
-    nav li:last-child { margin-bottom: 0; }
-    .group-label {
-      margin: 0 0 0.75rem;
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #888;
-    }
-    a {
-      color: #111;
-      font-size: 1rem;
-      text-decoration: underline;
-      text-underline-offset: 0.15em;
-    }
-    a:hover, a:focus-visible { text-decoration-thickness: 2px; }
-    a:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Kevin Guiang</h1>
-    <nav aria-label="Primary">
-      <ul>
-        <li><a href="/blog/">Blog</a></li>
-        <li><a href="music/">Music</a></li>
-        <li><a href="books/">Books</a></li>
-        <li><a href="timeline/">Timeline</a></li>
-      </ul>
-    </nav>
-    <p class="group-label">Wine</p>
-    <nav aria-label="Wine tools">
-      <ul>
-        <li><a href="https://kfguiang-spec.github.io/wset-tasting-guide/">Tasting guide (WSET)</a></li>
-        <li><a href="https://kfguiang-spec.github.io/grape-lineage/">Grape lineage</a></li>
-        <li><a href="https://kfguiang-spec.github.io/french-wine-regions/">France regions</a></li>
-        <li><a href="https://kfguiang-spec.github.io/us-wine-regions/">US regions</a></li>
-        <li><a href="https://kfguiang-spec.github.io/wine-varietal-map/">Varietal production</a></li>
-        <li><a href="https://kfguiang-spec.github.io/wine-climate-twins/">Climate twins</a></li>
-      </ul>
-    </nav>
-    <p class="group-label">Projects</p>
-    <nav aria-label="Projects">
-      <ul>
-        <li><a href="https://kfguiang-spec.github.io/villa-honegg-vendor-crm/">Villa Honegg vendor CRM</a></li>
-        <li><a href="https://kfguiang-spec.github.io/villa-honegg-vendor-crm/vendors.html">Villa Honegg vendors</a></li>
-      </ul>
-    </nav>
-  </main>
+  <div class="container">
+    <header class="site-header">
+      <h1 class="site-name">Kevin Guiang</h1>
+    </header>
+
+    <section class="page-intro home-intro">
+      <p class="lede">A few pages about what I listen to, read and think about, a set of wine tools, and a project tracker.</p>
+    </section>
+
+    <main>
+      <section class="section" aria-labelledby="h-site">
+        <h2 class="section-label" id="h-site">On this site</h2>
+        <ul class="tiles">
+          <li><a class="card tile" href="music/"><span class="tt">Music</span><span class="td">Record-store discovery crates: what to listen to after Nathan Micay and Barker.</span></a></li>
+          <li><a class="card tile" href="books/"><span class="tt">Books</span><span class="td">My reading history: what I&rsquo;ve read by subject, year by year, and what&rsquo;s next.</span><span class="teaser" id="books-teaser" hidden></span></a></li>
+          <li><a class="card tile" href="timeline/"><span class="tt">Timeline</span><span class="td">Art, philosophy and technology across 500 years, from the High Renaissance to today.</span></a></li>
+          <li><a class="card tile" href="/blog/"><span class="tt">Blog</span><span class="td">Writing.</span></a></li>
+        </ul>
+      </section>
+
+      <section class="section" aria-labelledby="h-wine">
+        <h2 class="section-label" id="h-wine">Wine tools</h2>
+        <ul class="rows">
+          <li><a href="https://kfguiang-spec.github.io/wset-tasting-guide/"><span class="rt">Tasting guide (WSET)</span><span class="rd">Quick reference for the WSET Level 2 &amp; 3 tasting method: appearance, nose, palate and conclusions.</span><span class="ext" aria-hidden="true">&#8599;</span></a></li>
+          <li><a href="https://kfguiang-spec.github.io/grape-lineage/"><span class="rt">Grape lineage</span><span class="rd">Interactive family tree of grape varieties, with each cultivar&rsquo;s parents and offspring from Wikidata.</span><span class="ext" aria-hidden="true">&#8599;</span></a></li>
+          <li><a href="https://kfguiang-spec.github.io/french-wine-regions/"><span class="rt">France regions</span><span class="rd">France&rsquo;s major wine regions with climate normals and typical grapes; drill into Bordeaux.</span><span class="ext" aria-hidden="true">&#8599;</span></a></li>
+          <li><a href="https://kfguiang-spec.github.io/us-wine-regions/"><span class="rt">US regions</span><span class="rd">The main US wine states with climate normals and typical grapes; drill into California&rsquo;s AVAs.</span><span class="ext" aria-hidden="true">&#8599;</span></a></li>
+          <li><a href="https://kfguiang-spec.github.io/wine-varietal-map/"><span class="rt">Varietal production</span><span class="rd">Where each grape is actually planted (OIV by country, USDA by California county), with a climate compare.</span><span class="ext" aria-hidden="true">&#8599;</span></a></li>
+          <li><a href="https://kfguiang-spec.github.io/wine-climate-twins/"><span class="rt">Climate twins</span><span class="rd">Pick a wine region and rank its closest climate matches by temperature, rainfall and heat (ERA5, 1991&ndash;2020).</span><span class="ext" aria-hidden="true">&#8599;</span></a></li>
+        </ul>
+      </section>
+
+      <section class="section" aria-labelledby="h-projects">
+        <h2 class="section-label" id="h-projects">Projects</h2>
+        <ul class="rows">
+          <li><a href="https://kfguiang-spec.github.io/villa-honegg-vendor-crm/"><span class="rt">Villa Honegg vendor CRM</span><span class="rd">Wedding vendor tracker for Villa Honegg, September 2027: pipeline, quote comparison and timeline.</span><span class="ext" aria-hidden="true">&#8599;</span></a></li>
+          <li><a href="https://kfguiang-spec.github.io/villa-honegg-vendor-crm/vendors.html"><span class="rt">Villa Honegg vendors</span><span class="rd">Shortlist of photographers and videographers with location, status and quotes.</span><span class="ext" aria-hidden="true">&#8599;</span></a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Music, Books and Timeline live on this site. The wine tools and projects (&#8599;) are separate sites.</p>
+    </footer>
+  </div>
+
+  <script src="books/data.js"></script>
+  <script>
+  (function () {
+    // "Reading now" teaser from the Books page data (books/data.js); stays hidden if the data is missing.
+    var B = window.BOOKS, el = document.getElementById("books-teaser");
+    if (!B || !B.current || !B.current.length || !el) return;
+    var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var read = (B.books || []).filter(function (b) { return b.s === "read"; }).length;
+    el.innerHTML = '<span class="section-label">Reading now</span>' +
+      B.current.map(function (b) { return "<i>" + esc(b.title) + "</i> by " + esc(b.author); }).join("; ") +
+      (read ? '<br><span class="muted">' + read + " books logged as read</span>" : "");
+    el.hidden = false;
+  })();
+  </script>
 </body>
 </html>
