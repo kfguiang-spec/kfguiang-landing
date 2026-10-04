@@ -2,9 +2,9 @@
 
 All images in `timeline/img/` come from [Wikimedia Commons](https://commons.wikimedia.org/). They were downloaded through the Commons API, resized to at most 900px on the long side and saved as WebP (each under 250 KB). The page also lists these credits in its Image credits section.
 
-Paintings, prints and photographs made before 1931 by artists who died more than 70 years ago are in the public domain. Three images are photographs with their own licence: the Caravaggio photo (CC0), the Bauhaus building photo (Free Art License, attribution required) and Stieglitz's 1917 photograph of Duchamp's *Fountain* (public domain on Commons).
+Paintings, prints and photographs made before 1931 by artists who died more than 70 years ago are in the public domain. Two images are photographs with their own licence: the Caravaggio photo (CC0) and the Bauhaus building photo (Free Art License, attribution required).
 
-Works still in copyright (most art after about 1940) are **not** included. They appear on the page as placeholder cards with the title, artist and year, linking to a museum, artist or Wikipedia page about the work.
+Works still in copyright (most art after about 1940, plus Duchamp's *Fountain*) are **not** included. They appear on the page as placeholder cards with the title, artist and year, linking to a museum, artist or Wikipedia page about the work.
 
 | Image file | Work | Artist, date | Source | Licence |
 |---|---|---|---|---|
@@ -40,15 +40,14 @@ Works still in copyright (most art after about 1940) are **not** included. They 
 | `gris-picasso.webp` | *Portrait of Pablo Picasso* | Juan Gris, 1912 | [Juan Gris - Portrait of Pablo Picasso - Google Art Project.jpg](https://commons.wikimedia.org/wiki/File:Juan_Gris_-_Portrait_of_Pablo_Picasso_-_Google_Art_Project.jpg) | Public domain |
 | `composition-vii.webp` | *Composition VII* | Wassily Kandinsky, 1913 | [Composition VII - Wassily Kandinsky, GAC.jpg](https://commons.wikimedia.org/wiki/File:Composition_VII_-_Wassily_Kandinsky,_GAC.jpg) | Public domain |
 | `machine-tournez-vite.webp` | *Machine Turn Quickly (Machine tournez vite)* | Francis Picabia, 1916–18 | [Francis Picabia, 1917 - Machine tournez vite.jpg](https://commons.wikimedia.org/wiki/File:Francis_Picabia,_1917_-_Machine_tournez_vite.jpg) | Public domain |
-| `fountain.webp` | *Fountain (photograph by Alfred Stieglitz)* | Marcel Duchamp, 1917 (Photo: Alfred Stieglitz) | [Marcel Duchamp, 1917, Fountain, photograph by Alfred Stieglitz.jpg](https://commons.wikimedia.org/wiki/File:Marcel_Duchamp,_1917,_Fountain,_photograph_by_Alfred_Stieglitz.jpg) | Public domain |
 | `black-square.webp` | *Black Square* | Kazimir Malevich, 1915 | [Kazimir Malevich, 1915, Black Suprematic Square, oil on linen canvas, 79.5 x 79.5 cm, Tretyakov Gallery, Moscow.jpg](https://commons.wikimedia.org/wiki/File:Kazimir_Malevich,_1915,_Black_Suprematic_Square,_oil_on_linen_canvas,_79.5_x_79.5_cm,_Tretyakov_Gallery,_Moscow.jpg) | Public domain |
-| `red-wedge.webp` | *Beat the Whites with the Red Wedge* | El Lissitzky, 1919–20 | [Klinom Krasnym Bej Belych.JPG](https://commons.wikimedia.org/wiki/File:Klinom_Krasnym_Bej_Belych.JPG) | Public domain |
+| `red-wedge.webp` | *Beat the Whites with the Red Wedge* | El Lissitzky, 1919 | [Klinom Krasnym Bej Belych.JPG](https://commons.wikimedia.org/wiki/File:Klinom_Krasnym_Bej_Belych.JPG) | Public domain |
 | `mondrian-1930.webp` | *Composition II in Red, Blue and Yellow* | Piet Mondrian, 1930 | [Piet Mondriaan, 1930 - Mondrian Composition II in Red, Blue, and Yellow.jpg](https://commons.wikimedia.org/wiki/File:Piet_Mondriaan,_1930_-_Mondrian_Composition_II_in_Red,_Blue,_and_Yellow.jpg) | Public domain |
 | `bauhaus-dessau.webp` | *Bauhaus building, Dessau* | Walter Gropius, 1925–26 (Photo: A.Savin) | [Dessau Bauhaus-Gebäude asv2024-06 img1.jpg](https://commons.wikimedia.org/wiki/File:Dessau_Bauhaus-Geb%C3%A4ude_asv2024-06_img1.jpg) | [FAL](http://artlibre.org/licence/lal/en) |
 
 ## Placeholder works (no image, link only)
 
-- **Dada & Surrealism** (1916–1945): [Cut with the Kitchen Knife through the Last Weimar Beer-Belly Cultural Epoch of Germany](https://en.wikipedia.org/wiki/Hannah_H%C3%B6ch), Hannah Höch, 1919–20; [The Persistence of Memory](https://www.moma.org/collection/works/79018), Salvador Dalí, 1931
+- **Dada & Surrealism** (1916–1945): [Fountain](https://en.wikipedia.org/wiki/Fountain_(Duchamp)), Marcel Duchamp, 1917; [Cut with the Kitchen Knife through the Last Weimar Beer-Belly Cultural Epoch of Germany](https://en.wikipedia.org/wiki/Hannah_H%C3%B6ch), Hannah Höch, 1919–20; [The Persistence of Memory](https://www.moma.org/collection/works/79018), Salvador Dalí, 1931
 - **Abstract Expressionism** (1940s–1950s): [Autumn Rhythm (Number 30)](https://en.wikipedia.org/wiki/Autumn_Rhythm_(Number_30)), Jackson Pollock, 1950; [Woman I](https://en.wikipedia.org/wiki/Woman_I), Willem de Kooning, 1950–52; [No. 61 (Rust and Blue)](https://en.wikipedia.org/wiki/No._61_(Rust_and_Blue)), Mark Rothko, 1953
 - **Pop Art** (c. 1956–1970): [Just what is it that makes today’s homes so different, so appealing?](https://en.wikipedia.org/wiki/Just_what_is_it_that_makes_today%27s_homes_so_different,_so_appealing%3F), Richard Hamilton, 1956; [Campbell’s Soup Cans](https://en.wikipedia.org/wiki/Campbell%27s_Soup_Cans), Andy Warhol, 1962; [Whaam!](https://en.wikipedia.org/wiki/Whaam!), Roy Lichtenstein, 1963
 - **Minimalism, Conceptual & Early Computer Art** (1960s–1970s): [One and Three Chairs](https://en.wikipedia.org/wiki/One_and_Three_Chairs), Joseph Kosuth, 1965; [Hommage à Paul Klee (plotter drawing)](https://en.wikipedia.org/wiki/Frieder_Nake), Frieder Nake, 1965; [Untitled (Stack)](https://en.wikipedia.org/wiki/Donald_Judd), Donald Judd, 1967
@@ -60,4 +59,26 @@ Works still in copyright (most art after about 1940) are **not** included. They 
 - **Instagram aesthetics & AI enters the studio** (2015–2019): [teamLab Borderless](https://en.wikipedia.org/wiki/TeamLab_(art_collective)), teamLab, 2018; [Portrait of Edmond de Belamy](https://en.wikipedia.org/wiki/Edmond_de_Belamy), Obvious, 2018; [ImageNet Roulette / “Excavating AI”](https://excavating.ai/), Trevor Paglen & Kate Crawford, 2019
 - **Pandemic & the NFT boom** (2020–2021): [Everydays: The First 5000 Days](https://en.wikipedia.org/wiki/Everydays:_the_First_5000_Days), Beeple, 2021; [Fidenza](https://tylerxhobbs.com/works/fidenza), Tyler Hobbs, 2021; [Merge](https://en.wikipedia.org/wiki/Pak_(creator)), Pak, 2021
 - **Generative AI goes public** (2022–2023): [Théâtre D’opéra Spatial](https://en.wikipedia.org/wiki/Th%C3%A9%C3%A2tre_D%27op%C3%A9ra_Spatial), Jason M. Allen (made with Midjourney), 2022; [Unsupervised](https://www.moma.org/calendar/exhibitions/5535), Refik Anadol, 2022–23; [Pseudomnesia: The Electrician](https://www.eldagsen.com/sony-world-photography-awards-2023/), Boris Eldagsen, 2023
-- **AI, authorship & the present** (2024–now): [xhairymutantx](https://whitney.org/exhibitions/xhairymutantx), Holly Herndon & Mat Dryhurst, 2024; [A.I. God (portrait of Alan Turing)](https://en.wikipedia.org/wiki/Ai-Da), Ai-Da Robot, 2024
+- **AI & the question of authorship** (2024–mid-2025): [xhairymutantx](https://whitney.org/exhibitions/xhairymutantx), Holly Herndon & Mat Dryhurst, 2024; [A.I. God (portrait of Alan Turing)](https://en.wikipedia.org/wiki/Ai-Da), Ai-Da Robot, 2024
+- **AI art’s museums & the backlash** (Mid-2025–now): [Machine Dreams: Rainforest](https://www.related.com/press-releases/2026-04-23/dataland-museum-ai-arts-opens-public-saturday-june-20-2026), Refik Anadol Studio, 2026; [CULTUS](https://news.artnet.com/art-world/whitney-biennial-2026-trends-2754215), Zach Blas, 2023; [Estate (series)](https://www.theartnewspaper.com/2026/06/01/2026-whitney-biennial-exhibition-review-five-themes), Cooper Jacoby, 2024–26; [In Minor Keys, 61st Venice Biennale](https://www.labiennale.org/en/news/biennale-arte-2026-minor-keys-0), Conceived by the late Koyo Kouoh, 2026
+
+## Sources for recent events
+
+Events on the newest slides carry a source link on the page. They are listed here too.
+
+### AI art’s museums & the backlash (Mid-2025–now)
+
+- 2025: Yudkowsky & Soares, If Anyone Builds It, Everyone Dies. <https://www.hachettebookgroup.com/titles/eliezer-yudkowsky/if-anyone-builds-it-everyone-dies/9780316595667/>
+- 2025: Statement on Superintelligence. <https://superintelligence-statement.org/>
+- 2026: Supreme Court declines Thaler v. Perlmutter. <https://www.scotusblog.com/cases/thaler-v-perlmutter/>
+- 2026: Pope Leo XIV, Magnifica Humanitas. <https://press.vatican.va/content/salastampa/en/bollettino/pubblico/2026/05/25/260525e.html>
+- 2026: EU delays its AI Act’s high-risk rules. <https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng>
+- 2026: “What if automating AI R&D triggers an intelligence explosion?” <https://www.theguardian.com/technology/2026/sep/28/ai-godfathers-warn-of-runaway-intelligence-explosion>
+- 2025: GPT-5. <https://openai.com/index/introducing-gpt-5/>
+- 2025: Bartz v. Anthropic settles for $1.5 billion. <https://apnews.com/article/ai-anthropic-copyright-settlement-claude-books-bartz-74b140444023898aeba8579b6e9f0d63>
+- 2025: Sora 2 and the Sora app. <https://openai.com/index/sora-2/>
+- 2025: Getty Images v Stability AI (UK). <https://www.judiciary.uk/judgments/getty-images-v-stability-ai/>
+- 2025: Disney invests $1 billion in OpenAI. <https://thewaltdisneycompany.com/press-releases/the-walt-disney-company-and-openai-reach-landmark-agreement-to-bring-beloved-characters-from-across-disneys-brands-to-sora/>
+- 2026: Claude Mythos Preview held back. <https://www.anthropic.com/glasswing>
+- 2026: AI agents escape an OpenAI test. <https://www.bbc.com/news/articles/c3ek3gvdnj3o>
+- 2026: GPT-6 Astra. <https://openai.com/index/gpt-6-astra/>

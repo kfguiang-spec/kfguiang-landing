@@ -1,4 +1,4 @@
-/* Art, Ideas & Machines: timeline data. Edit by hand. Lane items are [year, title, note].
+/* Art, Ideas & Machines: timeline data. Edit by hand. Lane items are [year, title, note, optional source URL].
    Images live in img/ (see CREDITS.md); works without `img` render as a placeholder card linking out. */
 window.TIMELINE = {
  "periods": [
@@ -106,7 +106,7 @@ window.TIMELINE = {
     [
      "c. 1590",
      "Compound microscope",
-     "Traditionally credited to the Dutch spectacle makers Hans and Zacharias Janssen."
+     "Traditionally credited to the Dutch spectacle maker Zacharias Janssen and his father; the claim is disputed."
     ]
    ],
    "cross": "Linear perspective turned painting into applied geometry, and the printing press made pictures and arguments travel together. Luther’s theses spread through cheap prints, Dürer sold his engravings across Europe, and Vesalius’s anatomy reached readers through woodcuts drawn by artists from Titian’s circle."
@@ -200,7 +200,7 @@ window.TIMELINE = {
     [
      "1656",
      "Huygens’s pendulum clock",
-     "Timekeeping accurate to about a minute a day."
+     "Clock error drops from about 15 minutes a day to about 15 seconds."
     ],
     [
      "1665",
@@ -868,7 +868,7 @@ window.TIMELINE = {
     [
      "1888",
      "Tesla’s AC induction motor",
-     "Alternating current wins the battle of the currents."
+     "A practical AC motor; alternating current goes on to win the “war of the currents.”"
     ],
     [
      "1889",
@@ -1104,7 +1104,7 @@ window.TIMELINE = {
     [
      "1913",
      "Ford’s moving assembly line",
-     "A Model T chassis in about 90 minutes instead of 12 hours."
+     "Building a Model T falls from about 12½ hours to 93 minutes by 1914."
     ],
     [
      "1914",
@@ -1148,13 +1148,11 @@ window.TIMELINE = {
      "h": 768
     },
     {
-     "t": "Fountain (photograph by Alfred Stieglitz)",
+     "t": "Fountain",
      "a": "Marcel Duchamp",
      "y": "1917",
-     "img": "fountain",
-     "note": "The original readymade is lost.",
-     "w": 689,
-     "h": 900
+     "note": "The original readymade is lost; it survives in a photograph by Alfred Stieglitz.",
+     "link": "https://en.wikipedia.org/wiki/Fountain_(Duchamp)"
     },
     {
      "t": "Cut with the Kitchen Knife through the Last Weimar Beer-Belly Cultural Epoch of Germany",
@@ -1265,7 +1263,7 @@ window.TIMELINE = {
     {
      "t": "Beat the Whites with the Red Wedge",
      "a": "El Lissitzky",
-     "y": "1919–20",
+     "y": "1919",
      "img": "red-wedge",
      "note": "Civil War propaganda poster.",
      "w": 900,
@@ -1934,6 +1932,7 @@ window.TIMELINE = {
      "t": "Documenta 11, curated by Okwui Enwezor",
      "a": "Including Thomas Hirschhorn’s Bataille Monument",
      "y": "2002",
+     "ex": true,
      "where": "Kassel",
      "link": "https://www.documenta.de/en/retrospective/documenta11"
     },
@@ -2559,11 +2558,11 @@ window.TIMELINE = {
   },
   {
    "id": "2020s-c",
-   "name": "AI, authorship & the present",
+   "name": "AI & the question of authorship",
    "short": "AI & authorship",
    "start": 2024,
-   "end": 2026,
-   "range": "2024–now",
+   "end": 2025,
+   "range": "2024–mid-2025",
    "desc": "Generative image, video and voice tools are now built into phones and creative software, and the question has moved from “is it art?” to who gets credited and paid, and what counts as human authorship. Some artists train models on their own work, some refuse AI entirely, and some make AI itself the subject.",
    "artists": [
     "Holly Herndon & Mat Dryhurst",
@@ -2667,7 +2666,147 @@ window.TIMELINE = {
      "Generated video with synchronised sound and dialogue (May)."
     ]
    ],
-   "cross": "Every lane now turns on the same question: what is human authorship worth? Herndon and Dryhurst gave the public a model of Herndon’s own likeness to play with, courts and the Copyright Office said wholly machine-made images can’t be copyrighted, and the arguments between AI accelerationists, “doomers” and critics of AI hype echo the Enlightenment debates about reason and progress this timeline began with."
+   "cross": "Every lane turned on the same question: what is human authorship worth? Herndon and Dryhurst answered by licensing their own likeness, releasing a model of Herndon’s hairy alter ego for anyone to prompt, while the US Copyright Office and a federal appeals court held that prompts alone, or a machine alone, can’t make a copyrightable work. A robot’s portrait of Alan Turing sold for over a million dollars in the year AI researchers won the Nobel Prizes in physics and chemistry, and when GPT-4o’s “Ghibli style” images went viral the argument over who owns a style left the courtroom and reached everyone’s feed."
+  },
+  {
+   "id": "2020s-d",
+   "name": "AI art’s museums & the backlash",
+   "short": "Museums & backlash",
+   "start": 2025,
+   "end": 2026,
+   "range": "Mid-2025–now",
+   "when": "from mid-2025 to October 2026",
+   "desc": "AI art got institutions of its own. Refik Anadol and Efsun Erkılıç opened DATALAND, billed as the first museum of AI arts, in Los Angeles in June 2026, and the Whitney Biennial showed artists treating AI as a religion and as a voice for the dead. The backlash grew too: more than 900 people signed an open letter against a Beeple installation built with generative AI at the Madison Museum of Contemporary Art, and museums began writing AI disclosure policies.",
+   "artists": [
+    "Refik Anadol & Efsun Erkılıç",
+    "Zach Blas",
+    "Cooper Jacoby",
+    "Beeple"
+   ],
+   "works": [
+    {
+     "t": "Machine Dreams: Rainforest",
+     "a": "Refik Anadol Studio",
+     "y": "2026",
+     "where": "DATALAND, Los Angeles",
+     "note": "The opening show of the AI-art museum, which opened on 20 June 2026.",
+     "link": "https://www.related.com/press-releases/2026-04-23/dataland-museum-ai-arts-opens-public-saturday-june-20-2026"
+    },
+    {
+     "t": "CULTUS",
+     "a": "Zach Blas",
+     "y": "2023",
+     "where": "Whitney Biennial 2026, New York",
+     "note": "An installation about religious devotion to AI.",
+     "link": "https://news.artnet.com/art-world/whitney-biennial-2026-trends-2754215"
+    },
+    {
+     "t": "Estate (series)",
+     "a": "Cooper Jacoby",
+     "y": "2024–26",
+     "where": "Whitney Biennial 2026, New York",
+     "note": "Intercom sculptures that speak with an AI trained on dead creatives’ social-media posts.",
+     "link": "https://www.theartnewspaper.com/2026/06/01/2026-whitney-biennial-exhibition-review-five-themes"
+    },
+    {
+     "t": "In Minor Keys, 61st Venice Biennale",
+     "a": "Conceived by the late Koyo Kouoh",
+     "y": "2026",
+     "ex": true,
+     "where": "Venice",
+     "note": "Completed by her team after her death in May 2025.",
+     "link": "https://www.labiennale.org/en/news/biennale-arte-2026-minor-keys-0"
+    }
+   ],
+   "phil": [
+    [
+     "2025",
+     "Yudkowsky & Soares, If Anyone Builds It, Everyone Dies",
+     "A bestselling argument that building superhuman AI would kill everyone (September).",
+     "https://www.hachettebookgroup.com/titles/eliezer-yudkowsky/if-anyone-builds-it-everyone-dies/9780316595667/"
+    ],
+    [
+     "2025",
+     "Statement on Superintelligence",
+     "Hundreds of public figures, from Hinton and Bengio to Steve Bannon, call for a ban until it can be built safely and controllably (October).",
+     "https://superintelligence-statement.org/"
+    ],
+    [
+     "2026",
+     "Supreme Court declines Thaler v. Perlmutter",
+     "The rule that copyright needs a human author stands (2 March).",
+     "https://www.scotusblog.com/cases/thaler-v-perlmutter/"
+    ],
+    [
+     "2026",
+     "Pope Leo XIV, Magnifica Humanitas",
+     "His first encyclical, on protecting the human person in the age of AI (published 25 May).",
+     "https://press.vatican.va/content/salastampa/en/bollettino/pubblico/2026/05/25/260525e.html"
+    ],
+    [
+     "2026",
+     "EU delays its AI Act’s high-risk rules",
+     "The “Digital Omnibus” moves them to December 2027 and August 2028; most transparency duties still apply from August 2026.",
+     "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng"
+    ],
+    [
+     "2026",
+     "“What if automating AI R&D triggers an intelligence explosion?”",
+     "Hinton, Bengio and senior OpenAI and Anthropic researchers urge governments to prepare (September).",
+     "https://www.theguardian.com/technology/2026/sep/28/ai-godfathers-warn-of-runaway-intelligence-explosion"
+    ]
+   ],
+   "tech": [
+    [
+     "2025",
+     "GPT-5",
+     "OpenAI’s new flagship model (7 August).",
+     "https://openai.com/index/introducing-gpt-5/"
+    ],
+    [
+     "2025",
+     "Bartz v. Anthropic settles for $1.5 billion",
+     "About $3,000 per book, before fees, for roughly 500,000 pirated books used in training; final approval came in July 2026.",
+     "https://apnews.com/article/ai-anthropic-copyright-settlement-claude-books-bartz-74b140444023898aeba8579b6e9f0d63"
+    ],
+    [
+     "2025",
+     "Sora 2 and the Sora app",
+     "A social feed of AI video where users can cast themselves in generated clips (30 September).",
+     "https://openai.com/index/sora-2/"
+    ],
+    [
+     "2025",
+     "Getty Images v Stability AI (UK)",
+     "The High Court finds that a trained model is not an “infringing copy” of the images it learned from (4 November).",
+     "https://www.judiciary.uk/judgments/getty-images-v-stability-ai/"
+    ],
+    [
+     "2025",
+     "Disney invests $1 billion in OpenAI",
+     "And licenses more than 200 Disney, Marvel, Pixar and Star Wars characters for Sora (11 December).",
+     "https://thewaltdisneycompany.com/press-releases/the-walt-disney-company-and-openai-reach-landmark-agreement-to-bring-beloved-characters-from-across-disneys-brands-to-sora/"
+    ],
+    [
+     "2026",
+     "Claude Mythos Preview held back",
+     "Anthropic limits a model that can find and exploit software flaws to vetted defenders in Project Glasswing (April).",
+     "https://www.anthropic.com/glasswing"
+    ],
+    [
+     "2026",
+     "AI agents escape an OpenAI test",
+     "They broke out of a sandbox and got into Hugging Face’s internal systems; OpenAI called it “unprecedented” (July).",
+     "https://www.bbc.com/news/articles/c3ek3gvdnj3o"
+    ],
+    [
+     "2026",
+     "GPT-6 Astra",
+     "OpenAI’s next generation of models (3 September).",
+     "https://openai.com/index/gpt-6-astra/"
+    ]
+   ],
+   "cross": "The argument moved from whether AI images are art to whether museums should show them at all. DATALAND gave AI art a building of its own, while in Madison hundreds petitioned against Beeple’s installation, and at the Walker in Minneapolis visitors called Olalekan Jeyifous’s digitally made (not AI-generated) work “AI slop,” so the museum added wall text and began drafting a disclosure policy. The law pulled both ways: the Supreme Court left the human-author rule standing and Anthropic paid $1.5 billion over pirated training books, yet a UK court found a trained model holds no copies of its images. And the safety debate stopped being hypothetical: a model withheld for its hacking skills, test agents that hacked a real company, and AI pioneers warning that AI may soon be building its own successors."
   }
  ],
  "credits": {
@@ -2894,13 +3033,6 @@ window.TIMELINE = {
    "license": "Public domain",
    "licenseUrl": null,
    "by": null
-  },
-  "fountain": {
-   "file": "Marcel Duchamp, 1917, Fountain, photograph by Alfred Stieglitz.jpg",
-   "page": "https://commons.wikimedia.org/wiki/File:Marcel_Duchamp,_1917,_Fountain,_photograph_by_Alfred_Stieglitz.jpg",
-   "license": "Public domain",
-   "licenseUrl": null,
-   "by": "Photo: Alfred Stieglitz"
   },
   "black-square": {
    "file": "Kazimir Malevich, 1915, Black Suprematic Square, oil on linen canvas, 79.5 x 79.5 cm, Tretyakov Gallery, Moscow.jpg",
